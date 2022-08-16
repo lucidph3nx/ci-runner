@@ -1,5 +1,7 @@
 FROM circleci/runner:1.0.40761-ab081a3
 
+USER root
+
 ARG HELM_VERSION=3.2.4
 ARG KUBECTL_VERSION=1.19.10
 ARG TZ="Etc/UTC"
@@ -39,5 +41,7 @@ RUN set -x && curl --silent --location "https://get.helm.sh/helm-v${HELM_VERSION
     && chmod +x /usr/local/bin/helm \
     && helm version \
     && helm plugin install https://github.com/hypnoglow/helm-s3.git
+
+USER circleci
 
 WORKDIR /apps
