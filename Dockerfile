@@ -39,9 +39,11 @@ RUN set -x && curl --silent --location "https://get.helm.sh/helm-v${HELM_VERSION
     && mv /tmp/linux-amd64/helm /usr/local/bin/helm \
     && rm -rf /tmp/linux-amd64 \
     && chmod +x /usr/local/bin/helm \
-    && helm version \
-    && helm plugin install https://github.com/hypnoglow/helm-s3.git
+    && helm version
 
 USER circleci
+
+# install Helm plugin for user
+RUN sudo helm plugin install https://github.com/hypnoglow/helm-s3.git
 
 WORKDIR /apps
